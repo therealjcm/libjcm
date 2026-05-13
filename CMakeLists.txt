@@ -25,14 +25,14 @@ add_library(cii INTERFACE)  # Or STATIC if you combine multiple modules later
 add_library(arith STATIC src/arith.c)
 target_include_directories(arith PUBLIC include)
 
-#add_executable(arith_example examples/arith_test.c)
-#target_link_libraries(arith_example PRIVATE arith)
+add_executable(arith_example examples/arith_example.c)
+target_link_libraries(arith_example PRIVATE arith)
 
 # Tests (using CTest)
-#enable_testing()
-#add_executable(arith_test tests/arith_test.c)
-#target_link_libraries(arith_test PRIVATE arith)
-#add_test(NAME ArithTests COMMAND arith_test)
+enable_testing()
+add_executable(arith_test tests/arith_test.c)
+target_link_libraries(arith_test PRIVATE arith)
+add_test(NAME ArithTests COMMAND arith_test)
 
 # Install rules (optional)
 install(TARGETS arith DESTINATION lib)
