@@ -1,8 +1,10 @@
 ## Build Commands
+```bash
 mkdir build && cd build
 cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_SANITIZERS=ON ..
 cmake --build .
 ctest
+```
 
 ## Acknowledgments
 This library is a modern re-implementation based on the interfaces and designs from
