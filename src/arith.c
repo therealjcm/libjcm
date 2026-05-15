@@ -1,3 +1,11 @@
+/* arith.c - Arith implementation from "C Interfaces and Implementations"
+ * by David R. Hanson. Modernized C11 implementation.
+ *
+ * Original Copyright (c) 1994-1997 David R. Hanson.
+ * Modern portions Copyright (c) 2026 Jason Messer.
+ * MIT licensed. See top-level LICENSE file.
+ */
+
 #include "arith.h"
 #include <assert.h>
 
@@ -17,7 +25,7 @@ int Arith_div(int x, int y) {
 	int q = x / y;          // C99+ toward-zero
 	int r = x % y;
     
-	// Adjust only when signs differ and there's a remainder
+	// Adjust toward negative infinity when signs differ and there's a remainder
 	if ((x ^ y) < 0 && r != 0) {
 		q -= 1;
 	}
