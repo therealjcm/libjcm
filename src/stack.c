@@ -10,35 +10,35 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#define T Stack_T
+struct Stack_Node {
+	void *x;
+	struct Stack_Node *link;
+}; 
 
-struct T {
-	struct node {
-		void *x;
-		struct node *link;
-	} *head;
+struct Stack_T {
+	struct Stack_Node *head;
 	size_t size;
 };
 
-T *Stack_new()
+Stack_T *Stack_new()
 {
-	T *stk = malloc(sizeof(*stk));
+	Stack_T *stk = malloc(sizeof(*stk));
 	assert(stk);
 	stk->head = NULL;
 	stk->size = 0;
 	return stk;
 }
 
-bool Stack_empty(const T *stk)
+bool Stack_empty(const Stack_T *stk)
 {
 	assert(stk);
 	return stk->size == 0;
 }
 
-void Stack_push(T *stk, void *x)
+void Stack_push(Stack_T *stk, void *x)
 {
 	assert(stk);
-	struct node *p = malloc(sizeof(*p));
+	struct Stack_Node *p = malloc(sizeof(*p));
 	assert(p);
 	p->x = x;
 	p->link = stk->head;
@@ -46,12 +46,12 @@ void Stack_push(T *stk, void *x)
 	stk->size += 1;
 }
 
-void *Stack_pop(T *stk)
+void *Stack_pop(Stack_T *stk)
 {
 	assert(stk);
 	assert(stk->head);
 
-	struct node *p = stk->head;
+	struct Stack_Node *p = stk->head;
 	void *x = p->x;
 	stk->head = p->link;
 	free(p);
@@ -59,11 +59,11 @@ void *Stack_pop(T *stk)
 	return x;
 }
 
-void Stack_free(T **stk)
+void Stack_free(Stack_T **stk)
 {
 	assert(stk && *stk);
 	while ((*stk)->head) {
-		struct node *p = (*stk)->head;
+		struct Stack_Node *p = (*stk)->head;
 		(*stk)->head = p->link;
 		free(p);
 	}
@@ -71,7 +71,7 @@ void Stack_free(T **stk)
 	*stk = NULL;
 }
 
-size_t Stack_size(const T *stk)
+size_t Stack_size(const Stack_T *stk)
 {
 	assert(stk);
 	return stk->size;
